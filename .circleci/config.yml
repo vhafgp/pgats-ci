@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  e2e:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.47.2-jammy
+    steps:
+      - checkout
+
+      - run:
+          name: Instalando Yarn
+          command: npm install -g yarn
+
+      - run:
+          name: Instalando dependências
+          command: yarn
+
+      - run:
+          name: Instalando Browsers do Playwright
+          command: yarn playwright install
+
+      - run:
+          name: Executando testes e2e
+          command: yarn run e2e
+
+workflows:
+  pipeline:
+    jobs:
+      - e2e
